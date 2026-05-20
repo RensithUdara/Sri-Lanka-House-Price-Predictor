@@ -619,6 +619,48 @@ def sidebar_inputs(meta: dict[str, Any], town_map: dict[str, list[str]]) -> dict
     return inputs
 
 
+def main_inputs(meta: dict[str, Any], town_map: dict[str, list[str]]) -> dict[str, Any]:
+    categories = meta.get("categories", {})
+    inputs: dict[str, Any] = {}
+
+    st.markdown("<div class='section-heading'>Valuation inputs</div>", unsafe_allow_html=True)
+    location_col, size_col, room_col = st.columns([1.05, 1, .95], gap="medium")
+
+    with location_col:
+        districts = categories.get("district", [])
+        default_district = districts.index("Colombo") if "Colombo" in districts else 0
+        district = st.selectbox("District", options=districts, index=default_district)
+        inputs["district"] = district
+
+        towns = town_map.get(district) or categories.get("town", [])
+        inputs["town"] = st.selectbox("Town", options=towns, index=0)
+
+    with size_col:
+        inputs["Land size"] = st.number_input(
+            "Land size (perches)",
+            min_value=1.0,
+            max_value=500.0,
+            value=10.0,
+            step=1.0,
+        )
+        inputs["House size"] = st.number_input(
+            "House size (sq ft)",
+            min_value=100.0,
+            max_value=20_000.0,
+            value=1_500.0,
+            step=50.0,
+        )
+
+    with room_col:
+        inputs["Beds"] = st.slider("Beds", 1, 12, 3)
+        inputs["Baths"] = st.slider("Baths", 1, 10, 2)
+        seller_options = categories.get("Seller_type", ["Member", "Premium-Member"])
+        default_seller = seller_options.index("Member") if "Member" in seller_options else 0
+        inputs["Seller_type"] = st.selectbox("Seller type", options=seller_options, index=default_seller)
+
+    return inputs
+
+
 def render_price_panel(prediction: PredictionResult) -> None:
     st.markdown(
         f"""
