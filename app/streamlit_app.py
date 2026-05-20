@@ -538,6 +538,8 @@ def style_page() -> None:
         }
 
         button[data-baseweb="tab"] {
+            flex: 1 1 0;
+            justify-content: center;
             border-radius: 6px;
             color: #475467 !important;
             font-weight: 800;
@@ -672,6 +674,14 @@ def style_page() -> None:
             .metric-grid,
             .price-meta {
                 grid-template-columns: 1fr;
+            }
+
+            .stTabs [data-baseweb="tab-list"] {
+                overflow-x: auto;
+            }
+
+            button[data-baseweb="tab"] {
+                flex: 0 0 auto;
             }
         }
 
