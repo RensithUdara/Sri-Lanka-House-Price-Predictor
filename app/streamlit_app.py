@@ -187,80 +187,183 @@ def style_page() -> None:
     st.markdown(
         """
         <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap');
+
+        :root {
+            --ink: #172033;
+            --muted: #687386;
+            --paper: #ffffff;
+            --mist: #f5f7fb;
+            --line: #d8e0ea;
+            --teal: #009c8c;
+            --teal-dark: #08786d;
+            --coral: #e85d3f;
+            --coral-dark: #c94831;
+            --sun: #f2b84b;
+            --indigo: #4656d9;
+            --violet: #7b61d1;
+        }
 
         html, body, [class*="css"] {
-            font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-            color: #18212f;
+            font-family: Manrope, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            color: var(--ink);
+        }
+
+        .stApp {
+            background: var(--mist);
         }
 
         .block-container {
-            padding-top: 1.6rem;
-            padding-bottom: 2.4rem;
-            max-width: 1180px;
+            padding-top: 1rem;
+            padding-bottom: 2.6rem;
+            max-width: 1260px;
+        }
+
+        header[data-testid="stHeader"] {
+            display: none;
         }
 
         [data-testid="stSidebar"] {
-            background: #f6f7f2;
-            border-right: 1px solid #dde2d7;
+            background: var(--paper);
+            border-right: 1px solid var(--line);
         }
 
-        [data-testid="stSidebar"] label {
-            font-weight: 650;
-            color: #263126;
+        [data-testid="stSidebar"] label,
+        label {
+            color: var(--ink) !important;
+            font-weight: 800 !important;
+            font-size: .82rem !important;
         }
 
-        .app-header {
-            display: flex;
-            justify-content: space-between;
-            gap: 1.5rem;
-            align-items: flex-end;
-            padding: 0 0 1rem;
-            border-bottom: 1px solid #e3e6df;
-            margin-bottom: 1.2rem;
+        .top-shell {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) auto auto;
+            gap: .85rem;
+            align-items: center;
+            margin-bottom: .9rem;
         }
 
         .app-title {
-            font-size: clamp(1.65rem, 3vw, 2.45rem);
+            font-size: clamp(1.45rem, 2.3vw, 2rem);
             font-weight: 800;
-            line-height: 1.08;
+            line-height: 1.05;
             margin: 0;
-            color: #162015;
+            color: var(--ink);
         }
 
         .app-subtitle {
-            margin: .45rem 0 0;
-            color: #5e6b5b;
-            font-size: .98rem;
+            margin: .28rem 0 0;
+            color: var(--muted);
+            font-size: .92rem;
+            max-width: 720px;
+        }
+
+        .header-kicker {
+            display: inline-flex;
+            align-items: center;
+            gap: .45rem;
+            color: var(--teal-dark);
+            font-size: .78rem;
+            font-weight: 800;
+            letter-spacing: 0;
+            text-transform: uppercase;
+            margin-bottom: .35rem;
+        }
+
+        .header-kicker::before {
+            content: "";
+            width: .65rem;
+            height: .65rem;
+            border-radius: 2px;
+            background: var(--teal);
         }
 
         .model-badge {
-            border: 1px solid #cbd8c3;
+            border: 1px solid rgba(70, 86, 217, .25);
             border-radius: 999px;
-            color: #2d5a3a;
-            background: #eef6e9;
-            padding: .45rem .75rem;
-            font-weight: 700;
+            color: var(--indigo);
+            background: rgba(70, 86, 217, .08);
+            padding: .55rem .8rem;
+            font-weight: 800;
             white-space: nowrap;
         }
 
-        .panel {
-            border: 1px solid #e1e5de;
-            background: #ffffff;
+        .workspace {
+            border: 1px solid var(--line);
+            background: var(--paper);
             border-radius: 8px;
-            padding: 1.05rem;
+            padding: .9rem;
+            box-shadow: 0 22px 55px rgba(34, 44, 65, .08);
+            margin-bottom: 1rem;
+        }
+
+        .input-panel {
+            border: 1px solid var(--line);
+            background: #fbfcff;
+            border-radius: 8px;
+            padding: .95rem;
+            height: 100%;
+        }
+
+        .section-heading {
+            color: var(--ink);
+            font-size: 1rem;
+            font-weight: 800;
+            margin: 0 0 .75rem;
+        }
+
+        .chip-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: .45rem;
+        }
+
+        .chip {
+            display: inline-flex;
+            align-items: center;
+            gap: .35rem;
+            background: #f7f9fd;
+            border: 1px solid var(--line);
+            border-radius: 999px;
+            color: #4c5870;
+            font-size: .78rem;
+            font-weight: 700;
+            padding: .38rem .62rem;
+        }
+
+        .panel {
+            border: 1px solid var(--line);
+            background: var(--paper);
+            border-radius: 8px;
+            padding: .95rem;
             min-height: 100%;
-            box-shadow: 0 8px 24px rgba(24, 33, 47, .05);
+            box-shadow: none;
         }
 
         .price-panel {
-            background: #17351f;
+            position: relative;
+            overflow: hidden;
+            background: #172033;
             color: white;
-            border-color: #17351f;
+            border: 1px solid #172033;
+            padding: 1.25rem;
+        }
+
+        .price-panel::before {
+            content: "";
+            position: absolute;
+            inset: 0 auto 0 0;
+            width: 7px;
+            background: var(--coral);
+        }
+
+        .price-panel > * {
+            position: relative;
+            z-index: 1;
         }
 
         .eyebrow {
-            color: #6e7b6b;
+            color: var(--muted);
             font-size: .76rem;
             font-weight: 800;
             letter-spacing: 0;
@@ -269,51 +372,78 @@ def style_page() -> None:
         }
 
         .price-panel .eyebrow {
-            color: #b9d8bc;
+            color: rgba(255, 255, 255, .82);
         }
 
         .price-value {
-            font-size: clamp(2rem, 5vw, 3.4rem);
+            font-size: clamp(2.2rem, 5vw, 3.9rem);
             font-weight: 800;
             line-height: 1;
             margin: .15rem 0 .65rem;
         }
 
         .range-text {
-            color: #d8ead6;
+            color: rgba(255, 255, 255, .86);
             font-size: .95rem;
+        }
+
+        .price-meta {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: .65rem;
+            margin-top: 1rem;
+        }
+
+        .price-meta-item {
+            border: 1px solid rgba(255, 255, 255, .16);
+            background: rgba(255, 255, 255, .08);
+            border-radius: 8px;
+            padding: .75rem;
+        }
+
+        .price-meta-label {
+            color: rgba(255, 255, 255, .72);
+            font-size: .72rem;
+            font-weight: 800;
+            margin-bottom: .2rem;
+        }
+
+        .price-meta-value {
+            color: white;
+            font-size: 1.05rem;
+            font-weight: 800;
         }
 
         .metric-grid {
             display: grid;
             grid-template-columns: repeat(2, minmax(0, 1fr));
-            gap: .75rem;
+            gap: .65rem;
         }
 
         .mini-metric {
-            border: 1px solid #e1e5de;
-            background: #fbfcf8;
+            border: 1px solid var(--line);
+            background: #fbfcff;
             border-radius: 8px;
             padding: .85rem;
         }
 
         .mini-label {
-            color: #667261;
+            color: var(--muted);
             font-size: .78rem;
             font-weight: 750;
             margin-bottom: .25rem;
         }
 
         .mini-value {
-            color: #1d281b;
+            color: var(--ink);
             font-size: 1.35rem;
             font-weight: 800;
             line-height: 1.15;
         }
 
         .summary-table td {
-            padding: .38rem 0;
-            border-bottom: 1px solid #edf0eb;
+            padding: .44rem 0;
+            border-bottom: 1px solid #edf1f6;
         }
 
         .summary-table tr:last-child td {
@@ -321,24 +451,79 @@ def style_page() -> None:
         }
 
         .summary-key {
-            color: #6a7467;
+            color: var(--muted);
         }
 
         .summary-value {
-            color: #172115;
+            color: var(--ink);
             text-align: right;
             font-weight: 700;
         }
 
         div[data-testid="stMetric"] {
-            border: 1px solid #e1e5de;
-            background: #fbfcf8;
+            border: 1px solid var(--line);
+            background: #fbfcff;
             border-radius: 8px;
             padding: .85rem;
         }
 
+        div[data-testid="stMetric"] label {
+            color: var(--muted) !important;
+            font-weight: 800;
+        }
+
+        div[data-testid="stMetric"] [data-testid="stMetricValue"] {
+            color: var(--ink);
+        }
+
+        .stTabs [data-baseweb="tab-list"] {
+            gap: .35rem;
+            background: var(--paper);
+            border: 1px solid var(--line);
+            border-radius: 8px;
+            padding: .35rem;
+        }
+
         button[data-baseweb="tab"] {
-            font-weight: 700;
+            border-radius: 6px;
+            color: #475467;
+            font-weight: 800;
+            padding-left: .9rem;
+            padding-right: .9rem;
+        }
+
+        button[data-baseweb="tab"][aria-selected="true"] {
+            background: var(--ink);
+            color: white;
+        }
+
+        div[data-baseweb="select"] > div,
+        div[data-testid="stNumberInput"] input {
+            border-radius: 8px !important;
+            border-color: var(--line) !important;
+            background: white !important;
+        }
+
+        [data-testid="stSlider"] [role="slider"] {
+            background: var(--coral);
+            border-color: white;
+        }
+
+        [data-testid="stDataFrame"] {
+            border: 1px solid var(--line);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        @media (max-width: 760px) {
+            .top-shell {
+                grid-template-columns: 1fr;
+            }
+
+            .metric-grid,
+            .price-meta {
+                grid-template-columns: 1fr;
+            }
         }
 
         footer, #MainMenu, .stDeployButton {
@@ -358,10 +543,11 @@ def render_header(meta: dict[str, Any]) -> None:
 
     st.markdown(
         f"""
-        <div class="app-header">
+        <div class="top-shell">
             <div>
+                <div class="header-kicker">Live valuation studio</div>
                 <h1 class="app-title">Sri Lanka House Price Predictor</h1>
-                <p class="app-subtitle">A valuation workspace for comparing model estimates with local market data.</p>
+                <p class="app-subtitle">Property valuation, comparable listings, and model diagnostics in one workspace.</p>
             </div>
             <div class="model-badge">{model_label} model</div>
         </div>
@@ -370,10 +556,15 @@ def render_header(meta: dict[str, Any]) -> None:
     )
 
     if params:
-        st.caption(
-            f"Training profile: {meta.get('splits', {}).get('train', '-')} train rows, "
-            f"{meta.get('splits', {}).get('test', '-')} test rows, "
-            f"{params.get('iterations', '-')} boosting iterations."
+        st.markdown(
+            f"""
+            <div class="chip-row" style="margin-bottom: .95rem;">
+                <div class="chip">{meta.get('splits', {}).get('train', '-')} train rows</div>
+                <div class="chip">{meta.get('splits', {}).get('test', '-')} test rows</div>
+                <div class="chip">{params.get('iterations', '-')} boosting iterations</div>
+            </div>
+            """,
+            unsafe_allow_html=True,
         )
 
 
@@ -382,7 +573,7 @@ def sidebar_inputs(meta: dict[str, Any], town_map: dict[str, list[str]]) -> dict
     inputs: dict[str, Any] = {}
 
     with st.sidebar:
-        st.header("Property")
+        st.header("Valuation inputs")
 
         districts = categories.get("district", [])
         default_district = districts.index("Colombo") if "Colombo" in districts else 0
@@ -423,7 +614,7 @@ def sidebar_inputs(meta: dict[str, Any], town_map: dict[str, list[str]]) -> dict
         inputs["Seller_type"] = st.selectbox("Seller type", options=seller_options, index=default_seller)
 
         st.divider()
-        st.caption("Changing any field recalculates the valuation.")
+        st.caption("Changing any field recalculates the estimate instantly.")
 
     return inputs
 
@@ -436,6 +627,16 @@ def render_price_panel(prediction: PredictionResult) -> None:
             <div class="price-value">{format_lkr(prediction.value)}</div>
             <div class="range-text">
                 Expected range: {format_lkr(prediction.lower)} to {format_lkr(prediction.upper)}
+            </div>
+            <div class="price-meta">
+                <div class="price-meta-item">
+                    <div class="price-meta-label">Lower guide</div>
+                    <div class="price-meta-value">{format_lkr(prediction.lower)}</div>
+                </div>
+                <div class="price-meta-item">
+                    <div class="price-meta-label">Upper guide</div>
+                    <div class="price-meta-value">{format_lkr(prediction.upper)}</div>
+                </div>
             </div>
         </div>
         """,
@@ -508,11 +709,13 @@ def dark_axis(figsize: tuple[float, float] = (7, 4)) -> tuple[plt.Figure, plt.Ax
     fig, ax = plt.subplots(figsize=figsize)
     fig.patch.set_facecolor("#ffffff")
     ax.set_facecolor("#ffffff")
-    ax.tick_params(colors="#455144", labelsize=9)
+    ax.tick_params(colors="#667085", labelsize=9)
     for spine in ("top", "right"):
         ax.spines[spine].set_visible(False)
     for spine in ("bottom", "left"):
-        ax.spines[spine].set_color("#d6ddd2")
+        ax.spines[spine].set_color("#dbe3ed")
+    ax.grid(axis="x", color="#edf2f7", linewidth=.8)
+    ax.set_axisbelow(True)
     return fig, ax
 
 
@@ -522,26 +725,26 @@ def price_distribution_chart(df: pd.DataFrame, prediction: PredictionResult, lab
     upper = max(float(prices_m.quantile(0.97)), prediction.value / 1_000_000 * 1.15, 1)
     shown = prices_m[prices_m <= upper]
 
-    ax.hist(shown, bins=36, color="#cad7c5", edgecolor="#ffffff", density=False)
-    ax.axvline(prediction.value / 1_000_000, color="#1f7a4d", lw=2.5, label="Estimate")
-    ax.axvline(float(prices_m.median()), color="#b26a21", lw=1.8, ls="--", label="Median")
-    ax.set_title(f"Price distribution: {label}", color="#172115", fontsize=12, fontweight="bold", pad=12)
-    ax.set_xlabel("Price (million LKR)", color="#5c6859")
-    ax.set_ylabel("Listings", color="#5c6859")
-    ax.legend(frameon=False, labelcolor="#263126")
+    ax.hist(shown, bins=36, color="#bde7ee", edgecolor="#ffffff", density=False)
+    ax.axvline(prediction.value / 1_000_000, color="#ff6b4a", lw=2.8, label="Estimate")
+    ax.axvline(float(prices_m.median()), color="#4b5cff", lw=1.8, ls="--", label="Median")
+    ax.set_title(f"Price distribution: {label}", color="#14161f", fontsize=12, fontweight="bold", pad=12)
+    ax.set_xlabel("Price (million LKR)", color="#667085")
+    ax.set_ylabel("Listings", color="#667085")
+    ax.legend(frameon=False, labelcolor="#14161f")
     fig.tight_layout()
     return fig
 
 
 def contribution_chart(contrib: pd.DataFrame) -> plt.Figure:
     top = contrib.head(8).sort_values("contribution")
-    colors = ["#b94d3a" if value < 0 else "#1f7a4d" for value in top["contribution"]]
+    colors = ["#ff6b4a" if value < 0 else "#00a6a6" for value in top["contribution"]]
 
     fig, ax = dark_axis((8, 4.3))
     ax.barh(top["feature"], top["contribution"] / 1_000_000, color=colors)
-    ax.axvline(0, color="#9aa497", lw=1)
-    ax.set_title("Top drivers for this estimate", color="#172115", fontsize=12, fontweight="bold", pad=12)
-    ax.set_xlabel("Impact (million LKR)", color="#5c6859")
+    ax.axvline(0, color="#98a2b3", lw=1)
+    ax.set_title("Top drivers for this estimate", color="#14161f", fontsize=12, fontweight="bold", pad=12)
+    ax.set_xlabel("Impact (million LKR)", color="#667085")
     fig.tight_layout()
     return fig
 
@@ -553,9 +756,10 @@ def global_importance_chart(model: Any, feature_columns: list[str]) -> plt.Figur
     values = [fi[i] for i in order][::-1]
 
     fig, ax = dark_axis((8, 4.3))
-    ax.barh(names, values, color="#8fae7f")
-    ax.set_title("Global feature importance", color="#172115", fontsize=12, fontweight="bold", pad=12)
-    ax.set_xlabel("Importance score", color="#5c6859")
+    bar_colors = ["#00a6a6", "#23b8b8", "#4b5cff", "#6675ff", "#ff6b4a"] * 2
+    ax.barh(names, values, color=bar_colors[: len(values)])
+    ax.set_title("Global feature importance", color="#14161f", fontsize=12, fontweight="bold", pad=12)
+    ax.set_xlabel("Importance score", color="#667085")
     fig.tight_layout()
     return fig
 
@@ -569,14 +773,14 @@ def actual_vs_predicted_chart() -> plt.Figure | None:
     y_true = np.load(true_path)
     y_pred = np.load(pred_path)
     fig, ax = dark_axis((6.8, 4.5))
-    ax.scatter(y_true, y_pred, color="#1f7a4d", s=12, alpha=0.38, edgecolors="none")
+    ax.scatter(y_true, y_pred, color="#00a6a6", s=12, alpha=0.38, edgecolors="none")
 
     lo = float(min(y_true.min(), y_pred.min()))
     hi = float(max(y_true.max(), y_pred.max()))
-    ax.plot([lo, hi], [lo, hi], color="#b94d3a", lw=1.6, ls="--")
-    ax.set_title("Actual vs predicted", color="#172115", fontsize=12, fontweight="bold", pad=12)
-    ax.set_xlabel("Actual price", color="#5c6859")
-    ax.set_ylabel("Predicted price", color="#5c6859")
+    ax.plot([lo, hi], [lo, hi], color="#ff6b4a", lw=1.6, ls="--")
+    ax.set_title("Actual vs predicted", color="#14161f", fontsize=12, fontweight="bold", pad=12)
+    ax.set_xlabel("Actual price", color="#667085")
+    ax.set_ylabel("Predicted price", color="#667085")
     ax.xaxis.set_major_formatter(mticker.FuncFormatter(lambda x, _: f"{x / 1e6:.0f}M"))
     ax.yaxis.set_major_formatter(mticker.FuncFormatter(lambda x, _: f"{x / 1e6:.0f}M"))
     fig.tight_layout()
