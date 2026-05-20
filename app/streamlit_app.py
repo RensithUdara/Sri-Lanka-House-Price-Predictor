@@ -190,33 +190,38 @@ def style_page() -> None:
         @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap');
 
         :root {
-            --ink: #172033;
-            --muted: #687386;
+            --ink: #111827;
+            --muted: #5f6d80;
             --paper: #ffffff;
-            --mist: #f5f7fb;
-            --line: #d8e0ea;
+            --mist: #eef3f8;
+            --line: #d5deea;
+            --line-soft: #e8edf4;
             --teal: #009c8c;
             --teal-dark: #08786d;
-            --coral: #e85d3f;
-            --coral-dark: #c94831;
+            --coral: #ee6346;
+            --coral-dark: #ca4b33;
             --sun: #f2b84b;
-            --indigo: #4656d9;
-            --violet: #7b61d1;
+            --indigo: #4054d6;
+            --navy: #141f34;
+            --field: #f9fbfe;
+            --sidebar: #ffffff;
         }
 
-        html, body, [class*="css"] {
+        html, body, .stApp {
             font-family: Manrope, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
             color: var(--ink);
         }
 
         .stApp {
-            background: var(--mist);
+            background:
+                linear-gradient(180deg, rgba(255,255,255,.72) 0, rgba(255,255,255,0) 280px),
+                var(--mist);
         }
 
         .block-container {
-            padding-top: 1rem;
-            padding-bottom: 2.6rem;
-            max-width: 1260px;
+            padding-top: 2rem;
+            padding-bottom: 2.8rem;
+            max-width: 1220px;
         }
 
         header[data-testid="stHeader"] {
@@ -224,8 +229,23 @@ def style_page() -> None:
         }
 
         [data-testid="stSidebar"] {
-            background: var(--paper);
+            background: var(--sidebar);
             border-right: 1px solid var(--line);
+        }
+
+        [data-testid="stSidebar"] > div:first-child {
+            padding-top: 1.35rem;
+        }
+
+        [data-testid="stSidebar"] * {
+            color: var(--ink);
+        }
+
+        [data-testid="stSidebar"] h1,
+        [data-testid="stSidebar"] h2,
+        [data-testid="stSidebar"] h3,
+        [data-testid="stSidebar"] p {
+            color: var(--ink) !important;
         }
 
         [data-testid="stSidebar"] label,
@@ -235,18 +255,57 @@ def style_page() -> None:
             font-size: .82rem !important;
         }
 
+        [data-testid="stSidebar"] [data-testid="stMarkdownContainer"] p,
+        [data-testid="stSidebar"] [data-testid="stCaptionContainer"],
+        [data-testid="stSidebar"] [data-testid="stCaptionContainer"] p {
+            color: var(--muted) !important;
+        }
+
+        .sidebar-title {
+            display: flex;
+            align-items: center;
+            gap: .55rem;
+            color: var(--ink);
+            font-size: 1.05rem;
+            font-weight: 800;
+            margin: .15rem 0 1.25rem;
+        }
+
+        .sidebar-title::before {
+            content: "";
+            width: .7rem;
+            height: .7rem;
+            border-radius: 3px;
+            background: var(--teal);
+            box-shadow: 0 0 0 4px rgba(0, 156, 140, .12);
+        }
+
+        .sidebar-section {
+            color: var(--muted);
+            font-size: .72rem;
+            font-weight: 800;
+            letter-spacing: 0;
+            text-transform: uppercase;
+            margin: 1.15rem 0 .45rem;
+        }
+
+        [data-testid="stSidebar"] hr {
+            border-color: var(--line-soft);
+            margin: 1.1rem 0;
+        }
+
         .top-shell {
             display: grid;
-            grid-template-columns: minmax(0, 1fr) auto auto;
-            gap: .85rem;
+            grid-template-columns: minmax(0, 1fr) auto;
+            gap: 1rem;
             align-items: center;
-            margin-bottom: .9rem;
+            margin-bottom: 1rem;
         }
 
         .app-title {
-            font-size: clamp(1.45rem, 2.3vw, 2rem);
+            font-size: clamp(1.65rem, 2.6vw, 2.35rem);
             font-weight: 800;
-            line-height: 1.05;
+            line-height: 1.08;
             margin: 0;
             color: var(--ink);
         }
@@ -279,30 +338,13 @@ def style_page() -> None:
         }
 
         .model-badge {
-            border: 1px solid rgba(70, 86, 217, .25);
+            border: 1px solid rgba(64, 84, 214, .24);
             border-radius: 999px;
-            color: var(--indigo);
-            background: rgba(70, 86, 217, .08);
-            padding: .55rem .8rem;
+            color: var(--indigo) !important;
+            background: rgba(64, 84, 214, .08);
+            padding: .65rem .95rem;
             font-weight: 800;
             white-space: nowrap;
-        }
-
-        .workspace {
-            border: 1px solid var(--line);
-            background: var(--paper);
-            border-radius: 8px;
-            padding: .9rem;
-            box-shadow: 0 22px 55px rgba(34, 44, 65, .08);
-            margin-bottom: 1rem;
-        }
-
-        .input-panel {
-            border: 1px solid var(--line);
-            background: #fbfcff;
-            border-radius: 8px;
-            padding: .95rem;
-            height: 100%;
         }
 
         .section-heading {
@@ -322,31 +364,33 @@ def style_page() -> None:
             display: inline-flex;
             align-items: center;
             gap: .35rem;
-            background: #f7f9fd;
+            background: rgba(255, 255, 255, .78);
             border: 1px solid var(--line);
             border-radius: 999px;
-            color: #4c5870;
+            color: #43516a;
             font-size: .78rem;
             font-weight: 700;
-            padding: .38rem .62rem;
+            padding: .42rem .68rem;
         }
 
         .panel {
             border: 1px solid var(--line);
             background: var(--paper);
             border-radius: 8px;
-            padding: .95rem;
+            padding: 1rem;
             min-height: 100%;
-            box-shadow: none;
+            box-shadow: 0 16px 38px rgba(30, 45, 68, .06);
         }
 
         .price-panel {
             position: relative;
             overflow: hidden;
-            background: #172033;
+            background:
+                linear-gradient(135deg, rgba(238, 99, 70, .14), rgba(238, 99, 70, 0) 34%),
+                var(--navy);
             color: white;
-            border: 1px solid #172033;
-            padding: 1.25rem;
+            border: 1px solid var(--navy);
+            padding: 1.35rem;
         }
 
         .price-panel::before {
@@ -376,10 +420,11 @@ def style_page() -> None:
         }
 
         .price-value {
-            font-size: clamp(2.2rem, 5vw, 3.9rem);
+            font-size: clamp(2.35rem, 5vw, 4rem);
             font-weight: 800;
             line-height: 1;
             margin: .15rem 0 .65rem;
+            color: white;
         }
 
         .range-text {
@@ -422,9 +467,10 @@ def style_page() -> None:
 
         .mini-metric {
             border: 1px solid var(--line);
-            background: #fbfcff;
+            background: var(--paper);
             border-radius: 8px;
             padding: .85rem;
+            box-shadow: 0 12px 30px rgba(30, 45, 68, .045);
         }
 
         .mini-label {
@@ -462,9 +508,10 @@ def style_page() -> None:
 
         div[data-testid="stMetric"] {
             border: 1px solid var(--line);
-            background: #fbfcff;
+            background: var(--paper);
             border-radius: 8px;
-            padding: .85rem;
+            padding: .9rem 1rem;
+            box-shadow: 0 12px 30px rgba(30, 45, 68, .045);
         }
 
         div[data-testid="stMetric"] label {
@@ -473,7 +520,8 @@ def style_page() -> None:
         }
 
         div[data-testid="stMetric"] [data-testid="stMetricValue"] {
-            color: var(--ink);
+            color: var(--ink) !important;
+            font-size: 1.75rem;
         }
 
         .stTabs [data-baseweb="tab-list"] {
@@ -486,27 +534,83 @@ def style_page() -> None:
 
         button[data-baseweb="tab"] {
             border-radius: 6px;
-            color: #475467;
+            color: #475467 !important;
             font-weight: 800;
             padding-left: .9rem;
             padding-right: .9rem;
         }
 
         button[data-baseweb="tab"][aria-selected="true"] {
-            background: var(--ink);
-            color: white;
+            background: var(--navy);
+            color: white !important;
         }
 
-        div[data-baseweb="select"] > div,
-        div[data-testid="stNumberInput"] input {
+        div[data-baseweb="select"] > div {
             border-radius: 8px !important;
             border-color: var(--line) !important;
             background: white !important;
+            min-height: 2.55rem;
+        }
+
+        div[data-baseweb="select"] span,
+        div[data-baseweb="select"] input,
+        div[data-baseweb="select"] svg,
+        div[data-testid="stSelectbox"] * {
+            color: var(--ink) !important;
+            fill: var(--ink) !important;
+            -webkit-text-fill-color: var(--ink) !important;
+        }
+
+        div[data-testid="stNumberInput"] {
+            color: var(--ink) !important;
+        }
+
+        div[data-testid="stNumberInput"] input {
+            border-radius: 8px 0 0 8px !important;
+            border-color: var(--line) !important;
+            background: white !important;
+            color: var(--ink) !important;
+            -webkit-text-fill-color: var(--ink) !important;
+        }
+
+        div[data-testid="stNumberInput"] button {
+            background: var(--navy) !important;
+            border-color: var(--navy) !important;
+            color: white !important;
+        }
+
+        div[data-testid="stNumberInput"] button svg {
+            fill: white !important;
+        }
+
+        [data-testid="stSlider"] {
+            color: var(--ink) !important;
         }
 
         [data-testid="stSlider"] [role="slider"] {
             background: var(--coral);
             border-color: white;
+        }
+
+        [data-testid="stSlider"] [data-testid="stTickBar"] {
+            color: var(--muted) !important;
+        }
+
+        [data-testid="stSlider"] [data-baseweb="slider"] div {
+            color: var(--ink) !important;
+        }
+
+        [data-testid="stSlider"] [data-baseweb="slider"] > div > div {
+            background-color: var(--coral) !important;
+        }
+
+        [data-testid="stMarkdownContainer"] p,
+        .stCaptionContainer {
+            color: var(--muted);
+        }
+
+        .stAlert {
+            border-radius: 8px;
         }
 
         [data-testid="stDataFrame"] {
@@ -573,8 +677,9 @@ def sidebar_inputs(meta: dict[str, Any], town_map: dict[str, list[str]]) -> dict
     inputs: dict[str, Any] = {}
 
     with st.sidebar:
-        st.header("Valuation inputs")
+        st.markdown("<div class='sidebar-title'>Valuation inputs</div>", unsafe_allow_html=True)
 
+        st.markdown("<div class='sidebar-section'>Location</div>", unsafe_allow_html=True)
         districts = categories.get("district", [])
         default_district = districts.index("Colombo") if "Colombo" in districts else 0
         district = st.selectbox("District", options=districts, index=default_district)
@@ -585,7 +690,7 @@ def sidebar_inputs(meta: dict[str, Any], town_map: dict[str, list[str]]) -> dict
         inputs["town"] = town
 
         st.divider()
-        st.subheader("Size")
+        st.markdown("<div class='sidebar-section'>Size</div>", unsafe_allow_html=True)
         inputs["Land size"] = st.number_input(
             "Land size (perches)",
             min_value=1.0,
@@ -602,7 +707,7 @@ def sidebar_inputs(meta: dict[str, Any], town_map: dict[str, list[str]]) -> dict
         )
 
         st.divider()
-        st.subheader("Rooms")
+        st.markdown("<div class='sidebar-section'>Rooms</div>", unsafe_allow_html=True)
         col1, col2 = st.columns(2)
         with col1:
             inputs["Beds"] = st.slider("Beds", 1, 12, 3)
