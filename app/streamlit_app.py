@@ -717,6 +717,65 @@ def style_page() -> None:
             -webkit-text-fill-color: var(--ink) !important;
         }
 
+        div[data-baseweb="popover"] {
+            z-index: 999999 !important;
+        }
+
+        div[data-baseweb="popover"] > div,
+        div[data-baseweb="popover"] > div > div,
+        div[data-baseweb="popover"] > div > div > div {
+            background: white !important;
+            border: 1px solid var(--line) !important;
+            border-radius: 8px !important;
+            box-shadow: 0 16px 32px rgba(17, 24, 39, .14) !important;
+            overflow: hidden !important;
+        }
+
+        div[data-baseweb="menu"],
+        div[data-baseweb="menu"] > div,
+        div[data-baseweb="menu"] ul,
+        ul[role="listbox"],
+        [role="listbox"] {
+            background: white !important;
+            border-radius: 0 !important;
+            padding: 0 !important;
+            margin: 0 !important;
+            overflow: auto !important;
+            max-height: 18rem !important;
+        }
+
+        div[role="option"],
+        li[role="option"],
+        [data-baseweb="menu"] [role="option"] {
+            background: white !important;
+            color: var(--ink) !important;
+            -webkit-text-fill-color: var(--ink) !important;
+            border-radius: 0 !important;
+            box-shadow: none !important;
+            margin: 0 !important;
+            min-height: 2.25rem !important;
+            width: 100% !important;
+        }
+
+        div[role="option"]:hover,
+        li[role="option"]:hover,
+        [data-baseweb="menu"] [role="option"]:hover,
+        div[role="option"][aria-selected="true"],
+        li[role="option"][aria-selected="true"],
+        [data-baseweb="menu"] [role="option"][aria-selected="true"] {
+            background: #eef7f6 !important;
+            color: var(--ink) !important;
+            -webkit-text-fill-color: var(--ink) !important;
+        }
+
+        div[role="option"] *,
+        li[role="option"] *,
+        [data-baseweb="menu"] [role="option"] * {
+            background: transparent !important;
+            color: var(--ink) !important;
+            -webkit-text-fill-color: var(--ink) !important;
+        }
+
         div[data-testid="stNumberInput"] {
             color: var(--ink) !important;
         }
