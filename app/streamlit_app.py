@@ -253,7 +253,7 @@ def style_page() -> None:
         [data-testid="stSidebarUserContent"] {
             width: 100%;
             box-sizing: border-box;
-            padding: .35rem 1.15rem 1.25rem !important;
+            padding: .25rem .72rem 1.1rem !important;
         }
 
         [data-testid="stSidebarCollapseButton"],
@@ -298,11 +298,11 @@ def style_page() -> None:
         .sidebar-head {
             display: grid;
             grid-template-columns: auto minmax(0, 1fr);
-            gap: .75rem;
+            gap: .65rem;
             align-items: start;
             border-bottom: 1px solid var(--line-soft);
-            padding: .35rem 0 1rem;
-            margin: .1rem 0 .95rem;
+            padding: .25rem 0 .85rem;
+            margin: .05rem 0 .85rem;
         }
 
         .sidebar-mark {
@@ -371,7 +371,7 @@ def style_page() -> None:
         .sidebar-rule {
             height: 1px;
             background: var(--line-soft);
-            margin: 1.05rem 0 .85rem;
+            margin: .85rem 0 .72rem;
         }
 
         .sidebar-note {
