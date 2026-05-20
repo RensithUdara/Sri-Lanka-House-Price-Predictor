@@ -398,6 +398,21 @@ def style_page() -> None:
             margin-bottom: .75rem;
         }
 
+        [data-testid="stSidebar"] [data-testid="stSlider"] {
+            border: 1px solid var(--line-soft);
+            background: rgba(255, 255, 255, .72);
+            border-radius: 8px;
+            padding: .75rem .82rem .58rem;
+        }
+
+        [data-testid="stSidebar"] [data-testid="stSlider"] label {
+            margin-bottom: .15rem;
+        }
+
+        [data-testid="stSidebar"] [data-testid="stSlider"] [data-baseweb="slider"] {
+            padding-top: .25rem;
+        }
+
         [data-testid="stSidebar"] div[data-baseweb="select"],
         [data-testid="stSidebar"] div[data-baseweb="select"] > div,
         [data-testid="stSidebar"] div[data-testid="stNumberInput"] > div,
@@ -943,11 +958,8 @@ def sidebar_inputs(meta: dict[str, Any], town_map: dict[str, list[str]]) -> dict
 
         st.markdown("<div class='sidebar-rule'></div>", unsafe_allow_html=True)
         st.markdown("<div class='sidebar-section'>Rooms</div>", unsafe_allow_html=True)
-        col1, col2 = st.columns(2)
-        with col1:
-            inputs["Beds"] = st.slider("Beds", 1, 12, 3)
-        with col2:
-            inputs["Baths"] = st.slider("Baths", 1, 10, 2)
+        inputs["Beds"] = st.slider("Beds", 1, 12, 3)
+        inputs["Baths"] = st.slider("Baths", 1, 10, 2)
 
         seller_options = categories.get("Seller_type", ["Member", "Premium-Member"])
         default_seller = seller_options.index("Member") if "Member" in seller_options else 0
