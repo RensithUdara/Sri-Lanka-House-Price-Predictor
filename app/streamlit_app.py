@@ -228,16 +228,47 @@ def style_page() -> None:
         }
 
         header[data-testid="stHeader"] {
-            display: none;
+            background: transparent;
+            box-shadow: none;
+            height: 2.8rem;
+        }
+
+        header[data-testid="stHeader"]::before {
+            background: transparent;
         }
 
         [data-testid="stSidebar"] {
-            background: var(--sidebar);
+            background:
+                linear-gradient(180deg, rgba(255,255,255,.96), rgba(248, 251, 255, .98)),
+                var(--sidebar);
             border-right: 1px solid var(--line);
+            box-shadow: 18px 0 45px rgba(31, 45, 70, .06);
+            min-width: 320px;
         }
 
         [data-testid="stSidebar"] > div:first-child {
-            padding-top: 1.35rem;
+            padding: .65rem 0 1.2rem;
+        }
+
+        [data-testid="stSidebarUserContent"] {
+            width: 100%;
+            box-sizing: border-box;
+            padding: .35rem 1.15rem 1.25rem !important;
+        }
+
+        [data-testid="stSidebarCollapseButton"],
+        [data-testid="collapsedControl"] {
+            border: 1px solid var(--line) !important;
+            border-radius: 8px !important;
+            background: white !important;
+            color: var(--ink) !important;
+            box-shadow: 0 10px 26px rgba(22, 31, 49, .08);
+        }
+
+        [data-testid="stSidebarCollapseButton"] svg,
+        [data-testid="collapsedControl"] svg {
+            color: var(--ink) !important;
+            fill: var(--ink) !important;
         }
 
         [data-testid="stSidebar"] * {
@@ -264,37 +295,115 @@ def style_page() -> None:
             color: var(--muted) !important;
         }
 
-        .sidebar-title {
-            display: flex;
-            align-items: center;
-            gap: .55rem;
-            color: var(--ink);
-            font-size: 1.05rem;
-            font-weight: 800;
-            margin: .15rem 0 1.25rem;
+        .sidebar-head {
+            display: grid;
+            grid-template-columns: auto minmax(0, 1fr);
+            gap: .75rem;
+            align-items: start;
+            border-bottom: 1px solid var(--line-soft);
+            padding: .35rem 0 1rem;
+            margin: .1rem 0 .95rem;
         }
 
-        .sidebar-title::before {
+        .sidebar-mark {
+            width: 2rem;
+            height: 2rem;
+            border-radius: 8px;
+            background: rgba(0, 156, 140, .1);
+            border: 1px solid rgba(0, 156, 140, .18);
+            display: grid;
+            place-items: center;
+        }
+
+        .sidebar-mark::before {
             content: "";
-            width: .7rem;
-            height: .7rem;
+            width: .78rem;
+            height: .78rem;
             border-radius: 3px;
             background: var(--teal);
-            box-shadow: 0 0 0 4px rgba(0, 156, 140, .12);
+            box-shadow: 0 0 0 4px rgba(0, 156, 140, .13);
+        }
+
+        .sidebar-kicker {
+            color: var(--teal-dark);
+            font-size: .68rem;
+            font-weight: 800;
+            letter-spacing: 0;
+            text-transform: uppercase;
+            margin-bottom: .18rem;
+        }
+
+        .sidebar-title {
+            color: var(--ink);
+            font-size: 1.18rem;
+            font-weight: 800;
+            line-height: 1.15;
+        }
+
+        .sidebar-subtitle {
+            color: var(--muted);
+            font-size: .76rem;
+            font-weight: 600;
+            line-height: 1.45;
+            margin-top: .28rem;
         }
 
         .sidebar-section {
-            color: var(--muted);
+            display: flex;
+            align-items: center;
+            gap: .45rem;
+            color: var(--ink);
             font-size: .72rem;
             font-weight: 800;
             letter-spacing: 0;
             text-transform: uppercase;
-            margin: 1.15rem 0 .45rem;
+            margin: 1rem 0 .6rem;
+        }
+
+        .sidebar-section::before {
+            content: "";
+            width: .44rem;
+            height: .44rem;
+            border-radius: 2px;
+            background: var(--coral);
+        }
+
+        .sidebar-rule {
+            height: 1px;
+            background: var(--line-soft);
+            margin: 1.05rem 0 .85rem;
+        }
+
+        .sidebar-note {
+            border: 1px solid rgba(0, 156, 140, .18);
+            background: rgba(0, 156, 140, .07);
+            border-radius: 8px;
+            color: var(--teal-dark);
+            font-size: .78rem;
+            font-weight: 700;
+            line-height: 1.45;
+            padding: .8rem .85rem;
+            margin-top: 1rem;
         }
 
         [data-testid="stSidebar"] hr {
             border-color: var(--line-soft);
             margin: 1.1rem 0;
+        }
+
+        [data-testid="stSidebar"] .stSelectbox,
+        [data-testid="stSidebar"] [data-testid="stNumberInput"],
+        [data-testid="stSidebar"] [data-testid="stSlider"] {
+            width: 100% !important;
+            margin-bottom: .75rem;
+        }
+
+        [data-testid="stSidebar"] div[data-baseweb="select"],
+        [data-testid="stSidebar"] div[data-baseweb="select"] > div,
+        [data-testid="stSidebar"] div[data-testid="stNumberInput"] > div,
+        [data-testid="stSidebar"] div[data-testid="stNumberInput"] input {
+            width: 100% !important;
+            box-sizing: border-box;
         }
 
         .top-shell {
@@ -732,7 +841,19 @@ def sidebar_inputs(meta: dict[str, Any], town_map: dict[str, list[str]]) -> dict
     inputs: dict[str, Any] = {}
 
     with st.sidebar:
-        st.markdown("<div class='sidebar-title'>Valuation inputs</div>", unsafe_allow_html=True)
+        st.markdown(
+            """
+            <div class="sidebar-head">
+                <div class="sidebar-mark"></div>
+                <div>
+                    <div class="sidebar-kicker">Property controls</div>
+                    <div class="sidebar-title">Valuation inputs</div>
+                    <div class="sidebar-subtitle">Tune the property profile and update the estimate instantly.</div>
+                </div>
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
 
         st.markdown("<div class='sidebar-section'>Location</div>", unsafe_allow_html=True)
         districts = categories.get("district", [])
@@ -744,7 +865,7 @@ def sidebar_inputs(meta: dict[str, Any], town_map: dict[str, list[str]]) -> dict
         town = st.selectbox("Town", options=towns, index=0)
         inputs["town"] = town
 
-        st.divider()
+        st.markdown("<div class='sidebar-rule'></div>", unsafe_allow_html=True)
         st.markdown("<div class='sidebar-section'>Size</div>", unsafe_allow_html=True)
         inputs["Land size"] = st.number_input(
             "Land size (perches)",
@@ -761,7 +882,7 @@ def sidebar_inputs(meta: dict[str, Any], town_map: dict[str, list[str]]) -> dict
             step=50.0,
         )
 
-        st.divider()
+        st.markdown("<div class='sidebar-rule'></div>", unsafe_allow_html=True)
         st.markdown("<div class='sidebar-section'>Rooms</div>", unsafe_allow_html=True)
         col1, col2 = st.columns(2)
         with col1:
@@ -773,8 +894,10 @@ def sidebar_inputs(meta: dict[str, Any], town_map: dict[str, list[str]]) -> dict
         default_seller = seller_options.index("Member") if "Member" in seller_options else 0
         inputs["Seller_type"] = st.selectbox("Seller type", options=seller_options, index=default_seller)
 
-        st.divider()
-        st.caption("Changing any field recalculates the estimate instantly.")
+        st.markdown(
+            "<div class='sidebar-note'>Changes are applied immediately to the prediction and market comparison.</div>",
+            unsafe_allow_html=True,
+        )
 
     return inputs
 
