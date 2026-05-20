@@ -538,11 +538,37 @@ def style_page() -> None:
             font-weight: 800;
             padding-left: .9rem;
             padding-right: .9rem;
+            min-height: 2.35rem;
+            transition: background .15s ease, color .15s ease;
+        }
+
+        button[data-baseweb="tab"] *,
+        button[data-baseweb="tab"] p {
+            color: #475467 !important;
+            -webkit-text-fill-color: #475467 !important;
         }
 
         button[data-baseweb="tab"][aria-selected="true"] {
             background: var(--navy);
             color: white !important;
+        }
+
+        button[data-baseweb="tab"][aria-selected="true"] *,
+        button[data-baseweb="tab"][aria-selected="true"] p {
+            color: white !important;
+            -webkit-text-fill-color: white !important;
+        }
+
+        button[data-baseweb="tab"]:hover {
+            background: #f3f6fb;
+        }
+
+        button[data-baseweb="tab"][aria-selected="true"]:hover {
+            background: var(--navy);
+        }
+
+        .stTabs [data-baseweb="tab-highlight"] {
+            display: none;
         }
 
         div[data-baseweb="select"] > div {
@@ -558,6 +584,20 @@ def style_page() -> None:
         div[data-testid="stSelectbox"] * {
             color: var(--ink) !important;
             fill: var(--ink) !important;
+            -webkit-text-fill-color: var(--ink) !important;
+        }
+
+        div[data-baseweb="popover"],
+        div[data-baseweb="menu"],
+        ul[role="listbox"] {
+            background: white !important;
+            color: var(--ink) !important;
+        }
+
+        div[data-baseweb="popover"] *,
+        div[data-baseweb="menu"] *,
+        ul[role="listbox"] * {
+            color: var(--ink) !important;
             -webkit-text-fill-color: var(--ink) !important;
         }
 
