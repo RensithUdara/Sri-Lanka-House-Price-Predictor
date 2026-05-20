@@ -219,9 +219,12 @@ def style_page() -> None:
         }
 
         .block-container {
+            width: 100%;
+            max-width: none;
+            padding-left: clamp(1rem, 2.4vw, 2.75rem);
+            padding-right: clamp(1rem, 2.4vw, 2.75rem);
             padding-top: 2rem;
             padding-bottom: 2.8rem;
-            max-width: 1220px;
         }
 
         header[data-testid="stHeader"] {
@@ -390,7 +393,7 @@ def style_page() -> None:
                 var(--navy);
             color: white;
             border: 1px solid var(--navy);
-            padding: 1.35rem;
+            padding: clamp(1.15rem, 2vw, 1.75rem);
         }
 
         .price-panel::before {
@@ -463,13 +466,14 @@ def style_page() -> None:
             display: grid;
             grid-template-columns: repeat(2, minmax(0, 1fr));
             gap: .65rem;
+            height: 100%;
         }
 
         .mini-metric {
             border: 1px solid var(--line);
             background: var(--paper);
             border-radius: 8px;
-            padding: .85rem;
+            padding: clamp(.85rem, 1.15vw, 1.05rem);
             box-shadow: 0 12px 30px rgba(30, 45, 68, .045);
         }
 
@@ -530,6 +534,7 @@ def style_page() -> None:
             border: 1px solid var(--line);
             border-radius: 8px;
             padding: .35rem;
+            width: 100%;
         }
 
         button[data-baseweb="tab"] {
@@ -1008,7 +1013,7 @@ def main() -> None:
     prediction = predict_price(model, meta, x_row)
     comparable_df, comparable_label = market_summary(market_df, inputs["district"], inputs["town"])
 
-    left, right = st.columns([1.15, 0.85], gap="large")
+    left, right = st.columns([1.35, 1.0], gap="large")
     with left:
         render_price_panel(prediction)
     with right:
@@ -1019,11 +1024,15 @@ def main() -> None:
     tab_overview, tab_explain, tab_model = st.tabs(["Overview", "Explanation", "Model quality"])
 
     with tab_overview:
-        col1, col2 = st.columns([0.9, 1.1], gap="large")
+        col1, col2 = st.columns([0.9, 1.35], gap="large")
         with col1:
             render_market_cards(comparable_df, comparable_label, prediction)
         with col2:
-            st.pyplot(price_distribution_chart(comparable_df, prediction, comparable_label), clear_figure=True)
+            st.pyplot(
+                price_distribution_chart(comparable_df, prediction, comparable_label),
+                clear_figure=True,
+                use_container_width=True,
+            )
 
     with tab_explain:
         if prediction.model_type == "sklearn_hgb_onehot":
@@ -1032,7 +1041,7 @@ def main() -> None:
             contrib = local_contributions(model, x_row, feature_cols, cat_cols)
             col1, col2 = st.columns([1.15, 0.85], gap="large")
             with col1:
-                st.pyplot(contribution_chart(contrib), clear_figure=True)
+                st.pyplot(contribution_chart(contrib), clear_figure=True, use_container_width=True)
             with col2:
                 shown = contrib.head(7).copy()
                 shown["impact"] = shown["contribution"].map(lambda v: format_lkr(abs(v)))
@@ -1048,11 +1057,11 @@ def main() -> None:
         col1, col2 = st.columns(2, gap="large")
         with col1:
             if prediction.model_type != "sklearn_hgb_onehot":
-                st.pyplot(global_importance_chart(model, feature_cols), clear_figure=True)
+                st.pyplot(global_importance_chart(model, feature_cols), clear_figure=True, use_container_width=True)
         with col2:
             avp_fig = actual_vs_predicted_chart()
             if avp_fig is not None:
-                st.pyplot(avp_fig, clear_figure=True)
+                st.pyplot(avp_fig, clear_figure=True, use_container_width=True)
             else:
                 st.info("Test prediction arrays were not found in artifacts.")
 
